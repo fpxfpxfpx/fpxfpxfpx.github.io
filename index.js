@@ -36,11 +36,11 @@ const criarTabelaDados = (dadosJogadores) => {
     const thead = document.createElement("thead");
     const trHead = document.createElement("tr");
 
-    const cabecalhos = ["Rank", "Nome", "Pontos", "Ação"];
+    const cabecalhos = ['<i class="bi bi-bar-chart-fill"></i> Rank', '<i class="bi bi-person-fill"></i> Nome', '<i class="bi bi-trophy-fill"></i> Pontos', '<i class="bi bi-pencil-fill"></i> Ação'];
     cabecalhos.forEach(cabecalho => {
         const th = document.createElement("th");
         th.scope = "col";
-        th.textContent = cabecalho;
+        th.innerHTML = cabecalho;
         trHead.appendChild(th);
     });
 
