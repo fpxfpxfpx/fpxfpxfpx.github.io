@@ -150,13 +150,30 @@ const buscarJogadorPeloNome = (dados, nome) => {
     return dados.filter(dado => dado.nome.toLowerCase() === nome);
 };
 
-// Função para apagar jogador por ID.
+// Função para apagar jogador por ID com confirmação
 const deletarEntradaPorId = (id) => {
-    let infoPlayers = JSON.parse(localStorage.getItem("infoPlayers")) || [];
-    infoPlayers = infoPlayers.filter(jogador => jogador.id !== id);
-    localStorage.setItem("infoPlayers", JSON.stringify(infoPlayers));
-    Swal.fire("Excluído!", "A entrada foi removida.", "success").then(() => {
-        location.reload();
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: "Você não poderá reverter isso!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let infoPlayers = JSON.parse(localStorage.getItem("infoPlayers")) || [];
+            infoPlayers = infoPlayers.filter(jogador => jogador.id !== id);
+            localStorage.setItem("infoPlayers", JSON.stringify(infoPlayers));
+            Swal.fire(
+                'Excluído!',
+                'A entrada foi removida.',
+                'success'
+            ).then(() => {
+                location.reload();
+            });
+        }
     });
 };
 
