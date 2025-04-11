@@ -71,7 +71,7 @@ const criarTabelaDados = (dadosJogadores) => {
             // Botão de visualização (olho)
             const btnOlho = document.createElement("button");
             btnOlho.innerHTML = `<i class="bi bi-eye-fill"></i>`;
-            btnOlho.setAttribute("class", "btn btn-info");
+            btnOlho.setAttribute("class", "btn btn-info me-2");
             btnOlho.onclick = () => {
                 let info = buscarJogadorPeloNome(obterDadosDoLocalStorage(), dado.nome);
 
@@ -82,18 +82,20 @@ const criarTabelaDados = (dadosJogadores) => {
                                 <tr>
                                     <th style="border: 1px solid #ddd; padding: 8px; background-color: #f4f4f4;">Data</th>
                                     <th style="border: 1px solid #ddd; padding: 8px; background-color: #f4f4f4;">Pontos</th>
-                                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #f4f4f4;">Ação</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; background-color: #f4f4f4;">Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 ${info.map(d => {
-                                    const dataFormatada = new Date(d.data).toLocaleDateString('pt-BR');
                                     return `
                                         <tr>
-                                            <td style="border: 1px solid #ddd; padding: 8px;">${dataFormatada}</td>
+                                            <td style="border: 1px solid #ddd; padding: 8px;">${d.data}</td>
                                             <td style="border: 1px solid #ddd; padding: 8px;">${d.pontos}</td>
                                             <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">
-                                                <button onclick="deletarEntradaPorId(${d.id}, '${dado.nome}')" class="btn btn-danger btn-sm">
+                                                <button onclick="editarEntradaPorId(${d.id})" class="btn btn-warning btn-sm me-1">
+                                                    <i class="bi bi-pencil-fill"></i>
+                                                </button>
+                                                <button onclick="deletarEntradaPorId(${d.id})" class="btn btn-danger btn-sm">
                                                     <i class="bi bi-trash3-fill"></i>
                                                 </button>
                                             </td>
@@ -149,29 +151,48 @@ const buscarJogadorPeloNome = (dados, nome) => {
 };
 
 // Função para apagar jogador por ID.
-const apagarJogadorPorId = (id) => {
+const deletarEntradaPorId = (id) => {
     let infoPlayers = JSON.parse(localStorage.getItem("infoPlayers")) || [];
     infoPlayers = infoPlayers.filter(jogador => jogador.id !== id);
     localStorage.setItem("infoPlayers", JSON.stringify(infoPlayers));
+    Swal.fire("Excluído!", "A entrada foi removida.", "success").then(() => {
+        location.reload();
+    });
 };
 
-// Função global para deletar entrada individual com confirmação.
-window.deletarEntradaPorId = (id, nome) => {
-    Swal.fire({
-        title: "Tem certeza?",
-        text: `Deseja excluir esta entrada de ${nome}?`,
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Sim, excluir!",
-        cancelButtonText: "Cancelar"
-    }).then(result => {
-        if (result.isConfirmed) {
-            apagarJogadorPorId(id);
-            Swal.fire("Excluído!", "A entrada foi removida.", "success").then(() => {
-                location.reload();
-            });
-        }
-    });
+// Função para editar a entrada de um jogador
+const editarEntradaPorId = (id) => {
+    let infoPlayers = JSON.parse(localStorage.getItem("infoPlayers")) || [];
+    let jogador = infoPlayers.find(jogador => jogador.id === id);
+    if (jogador) {
+        Swal.fire({
+            title: `Editar dados de ${jogador.nome}`,
+            html: `
+                <input type="text" id="editNome" class="swal2-input" value="${jogador.nome}" placeholder="Nome">
+                <input type="number" id="editPontos" class="swal2-input" value="${jogador.pontos}" placeholder="Pontos">
+                <input type="date" id="editData" class="swal2-input" value="${jogador.data.split('T')[0]}" placeholder="Data">
+            `,
+            confirmButtonText: 'Salvar',
+            showCancelButton: true,
+            preConfirm: () => {
+                const nome = document.getElementById("editNome").value;
+                const pontos = document.getElementById("editPontos").value;
+                const data = document.getElementById("editData").value;
+
+                // Atualiza a entrada no localStorage
+                const index = infoPlayers.findIndex(jogador => jogador.id === id);
+                if (index !== -1) {
+                    infoPlayers[index].nome = nome;
+                    infoPlayers[index].pontos = pontos;
+                    infoPlayers[index].data = data;
+                    localStorage.setItem("infoPlayers", JSON.stringify(infoPlayers));
+                    Swal.fire("Atualizado!", "Os dados foram atualizados.", "success").then(() => {
+                        location.reload();
+                    });
+                }
+            }
+        });
+    }
 };
 
 // Função para salvar dados no localStorage.
