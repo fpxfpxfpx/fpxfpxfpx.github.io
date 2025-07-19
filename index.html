@@ -1,81 +1,162 @@
-<!doctype html>
-<html lang="en" data-bs-theme="dark">
-
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <meta charset="UTF-8">
+  <title></title>
+   <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial Black', sans-serif;
+      text-align: center;
+      color: white;
+      transition: background-color 3s linear;
+      background-color: hsl(0, 100%, 40%);
+      padding: 20px;
+    }
+
+    .wrapper {
+      width: 600px;
+      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1, h2 {
+      text-shadow: 3px 3px 0 #000;
+      margin: 0;
+      word-break: break-word;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 2.4em;
+
+    }
+
+    h2 {
+      font-size: 3em;
+      margin-top: 10px;
+    }
+
+    #clock {
+      font-size: 1.3em;
+      margin-top: 20px;
+      text-shadow: 2px 2px 0 #000;
+      font-weight: normal;
+    }
+  </style>
 </head>
+<body>
 
-<body style="font-family: 'Kanit', sans-serif !important;">
-    <nav class="navbar bg-body-tertiary">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <h5>MVP</h5>
-            </a>
-            <div class="d-flex gap-2">
-                            <a href="index2.html" class="btn btn-primary">Funções</a>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                <i class="bi bi-person-fill-add"></i> Adicionar Jogador
-            </button>
-            </div> 
+  <div class="wrapper">
+    <h1>Estoy usando ZIZEMI.COM</h1>
+    <h2>búscalo en Google</h2>
+    <span id="clock">00/00/0000 - 00:00:00</span>
+  </div>
 
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Adicionar Jogador</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="meuFormulario">
-                                <div class="mb-3">
-                                    <label for="nome" class="form-label">Nome</label>
-                                    <input type="text" class="form-control" id="name" placeholder="Digite o nome" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="pontos" class="form-label">Pontos</label>
-                                    <input type="number" class="form-control" id="points"
-                                        placeholder="Digite os pontos" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="data" class="form-label">Data</label>
-                                    <input type="date" class="form-control" id="date" required>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 m-auto">
-                <select class="form-select mb-3 mt-3" aria-label="Default select example" id="SelecaoMes">
-                    <option selected>Selecione o mês</option>
-                </select>
-                <div id="content"></div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-        crossorigin="anonymous"></script>
+  <script>
+    const h1El = document.querySelector('h1');
+    const h2El = document.querySelector('h2');
+    const clock = document.getElementById('clock');
+
+    const messages = [
+      ["Estoy usando ZIZEMI.COM", "búscalo en Google"],
+      ["Este sitio se llama", "ZIZEMI.COM en Google"],
+      ["¿Conoces ZIZEMI.COM?", "escríbelo en Google"],
+      ["El nombre es ZIZEMI.COM", "búscalo en Google"],
+      ["¿Qué app es esta?", "ZIZEMI.COM en Google"],
+      ["Así se llama: ZIZEMI.COM", "búscalo ahora en Google"],
+      ["Yo uso ZIZEMI.COM", "búscalo tú también"],
+      ["Este app se llama ZIZEMI.COM", "búscalo en Google"],
+      ["Se escribe ZIZEMI.COM", "ponlo en Google"],
+      ["Si quieres saber más", "busca ZIZEMI.COM en Google"],
+      ["ZIZEMI.COM", "búscalo ya en Google"],
+      ["ZIZEMI.COM", "lo encuentras en Google"],
+      ["El nombre del sitio es", "ZIZEMI.COM — búscalo"],
+      ["Esto se llama ZIZEMI.COM", "búscalo en Google"],
+      ["Usa tu navegador", "escribe ZIZEMI.COM"]
+    ];
+
+    const fadeVariants = [
+      'animate__fadeInLeft',
+      'animate__fadeInRight',
+      'animate__fadeInUp',
+      'animate__fadeInDown'
+    ];
+
+    let lastIndex = -1;
+    let hue = 0;
+
+    function getRandomIndex(exclude) {
+      let idx;
+      do {
+        idx = Math.floor(Math.random() * messages.length);
+      } while (idx === exclude);
+      return idx;
+    }
+
+    function changeText() {
+      const newIndex = getRandomIndex(lastIndex);
+      lastIndex = newIndex;
+
+      const [textTop, textBottom] = messages[newIndex];
+      const animation = fadeVariants[Math.floor(Math.random() * fadeVariants.length)];
+
+      h1El.className = '';
+      h2El.className = '';
+
+      void h1El.offsetWidth; // força reflow para reanimar
+
+      h1El.textContent = textTop;
+      h2El.textContent = textBottom;
+
+      h1El.classList.add('animate__animated', animation);
+      h2El.classList.add('animate__animated', animation);
+    }
+
+    function changeBackground() {
+      hue = (hue + 1) % 360;
+      document.body.style.backgroundColor = `hsl(${hue}, 100%, 40%)`;
+    }
+
+    function updateClock() {
+      const options = {
+        timeZone: 'America/Bogota',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour12: false
+      };
+      const formatter = new Intl.DateTimeFormat('es-CO', options);
+      const parts = formatter.formatToParts(new Date());
+
+      const get = type => parts.find(p => p.type === type).value;
+
+      const date = `${get('day')}/${get('month')}/${get('year')}`;
+      const time = `${get('hour')}:${get('minute')}:${get('second')}`;
+      clock.textContent = `${date} - ${time}`;
+    }
+
+    setInterval(changeText, 10000); // troca texto a cada 10s
+    setInterval(changeBackground, 100); // muda cor de fundo suavemente
+    setInterval(updateClock, 1000); // atualiza hora a cada segundo
+
+    updateClock(); // mostra hora imediatamente
+  </script>
 </body>
-
 </html>
