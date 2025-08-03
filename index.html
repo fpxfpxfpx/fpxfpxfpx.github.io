@@ -1,162 +1,58 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title></title>
-   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <title>Logo Bounce</title>
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      overflow: hidden;
+      background: transparent;
     }
-
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Arial Black', sans-serif;
-      text-align: center;
-      color: white;
-      transition: background-color 3s linear;
-      background-color: hsl(0, 100%, 40%);
-      padding: 20px;
-    }
-
-    .wrapper {
-      width: 600px;
-      max-width: 90%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    h1, h2 {
-      text-shadow: 3px 3px 0 #000;
-      margin: 0;
-      word-break: break-word;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      font-size: 2.4em;
-
-    }
-
-    h2 {
-      font-size: 3em;
-      margin-top: 10px;
-    }
-
-    #clock {
-      font-size: 1.3em;
-      margin-top: 20px;
-      text-shadow: 2px 2px 0 #000;
-      font-weight: normal;
+    canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
     }
   </style>
 </head>
 <body>
-
-  <div class="wrapper">
-    <h1>Estoy usando ZIZEMI.COM</h1>
-    <h2>búscalo en Google</h2>
-    <span id="clock">00/00/0000 - 00:00:00</span>
-  </div>
-
+  <canvas id="canvas"></canvas>
   <script>
-    const h1El = document.querySelector('h1');
-    const h2El = document.querySelector('h2');
-    const clock = document.getElementById('clock');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = '3c5c8d11-b2c3-4e80-a02a-a5ccf0e5e952.png';
 
-    const messages = [
-      ["Estoy usando ZIZEMI.COM", "búscalo en Google"],
-      ["Este sitio se llama", "ZIZEMI.COM en Google"],
-      ["¿Conoces ZIZEMI.COM?", "escríbelo en Google"],
-      ["El nombre es ZIZEMI.COM", "búscalo en Google"],
-      ["¿Qué app es esta?", "ZIZEMI.COM en Google"],
-      ["Así se llama: ZIZEMI.COM", "búscalo ahora en Google"],
-      ["Yo uso ZIZEMI.COM", "búscalo tú también"],
-      ["Este app se llama ZIZEMI.COM", "búscalo en Google"],
-      ["Se escribe ZIZEMI.COM", "ponlo en Google"],
-      ["Si quieres saber más", "busca ZIZEMI.COM en Google"],
-      ["ZIZEMI.COM", "búscalo ya en Google"],
-      ["ZIZEMI.COM", "lo encuentras en Google"],
-      ["El nombre del sitio es", "ZIZEMI.COM — búscalo"],
-      ["Esto se llama ZIZEMI.COM", "búscalo en Google"],
-      ["Usa tu navegador", "escribe ZIZEMI.COM"]
-    ];
+    let x = 100, y = 100;
+    let dx = 1, dy = 1;
+    let imgWidth = 320;
+    let imgHeight = 120;
 
-    const fadeVariants = [
-      'animate__fadeInLeft',
-      'animate__fadeInRight',
-      'animate__fadeInUp',
-      'animate__fadeInDown'
-    ];
-
-    let lastIndex = -1;
-    let hue = 0;
-
-    function getRandomIndex(exclude) {
-      let idx;
-      do {
-        idx = Math.floor(Math.random() * messages.length);
-      } while (idx === exclude);
-      return idx;
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
 
-    function changeText() {
-      const newIndex = getRandomIndex(lastIndex);
-      lastIndex = newIndex;
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-      const [textTop, textBottom] = messages[newIndex];
-      const animation = fadeVariants[Math.floor(Math.random() * fadeVariants.length)];
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, x, y, imgWidth, imgHeight);
 
-      h1El.className = '';
-      h2El.className = '';
+      x += dx;
+      y += dy;
 
-      void h1El.offsetWidth; // força reflow para reanimar
+      if (x + imgWidth >= canvas.width || x <= 0) dx *= -1;
+      if (y + imgHeight >= canvas.height || y <= 0) dy *= -1;
 
-      h1El.textContent = textTop;
-      h2El.textContent = textBottom;
-
-      h1El.classList.add('animate__animated', animation);
-      h2El.classList.add('animate__animated', animation);
+      requestAnimationFrame(draw);
     }
 
-    function changeBackground() {
-      hue = (hue + 1) % 360;
-      document.body.style.backgroundColor = `hsl(${hue}, 100%, 40%)`;
-    }
-
-    function updateClock() {
-      const options = {
-        timeZone: 'America/Bogota',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-        hour12: false
-      };
-      const formatter = new Intl.DateTimeFormat('es-CO', options);
-      const parts = formatter.formatToParts(new Date());
-
-      const get = type => parts.find(p => p.type === type).value;
-
-      const date = `${get('day')}/${get('month')}/${get('year')}`;
-      const time = `${get('hour')}:${get('minute')}:${get('second')}`;
-      clock.textContent = `${date} - ${time}`;
-    }
-
-    setInterval(changeText, 10000); // troca texto a cada 10s
-    setInterval(changeBackground, 100); // muda cor de fundo suavemente
-    setInterval(updateClock, 1000); // atualiza hora a cada segundo
-
-    updateClock(); // mostra hora imediatamente
+    img.onload = draw;
   </script>
 </body>
 </html>
