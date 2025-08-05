@@ -3,31 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Imagens Centralizadas</title>
+    <title>Acerte o Alvo!</title>
     <style>
         body {
-            /* Flexbox para centralizar o conteúdo na vertical e horizontal */
+            /* Deixa o fundo da página transparente */
+            background-color: transparent;
+            /* Flexbox para centralizar o conteúdo */
             display: flex;
-            flex-direction: column; /* Coloca os itens um abaixo do outro */
-            justify-content: center; /* Centraliza verticalmente */
-            align-items: center; /* Centraliza horizontalmente */
-            min-height: 100vh; /* Garante que o corpo da página ocupe a altura total da tela */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
-            background-color: #f0f0f0; /* Um fundo leve para melhor visualização */
+            overflow: hidden; /* Evita barras de rolagem */
         }
-        img {
-            max-width: 100%; /* Garante que a imagem não ultrapasse a largura da tela */
-            height: auto; /* Mantém a proporção da imagem */
-            margin: 10px 0; /* Adiciona um pequeno espaço entre as imagens */
-            border-radius: 8px; /* Adiciona cantos arredondados */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra suave */
+        
+        /* O contêiner pai para as imagens */
+        .imagem-container {
+            position: relative;
+            width: 300px; /* Defina a largura do contêiner */
+            height: 300px; /* Defina a altura do contêiner */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Estilo comum para as imagens */
+        .imagem {
+            max-width: 100%;
+            max-height: 100%;
+            position: absolute;
+            cursor: pointer; /* Muda o cursor para indicar que é clicável */
+        }
+
+        /* Efeito de pulso para a imagem do dinheiro */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #dinheiro {
+            animation: pulse 1s infinite; /* Aplica o efeito de pulso */
+        }
+
+        #skin {
+            display: none; /* A imagem da skin começa invisível */
         }
     </style>
 </head>
 <body>
 
-    <img src="https://media.tenor.com/50VxfE-ap3UAAAAj/money.gif" alt="Dinheiro animado">
-    <img src="https://static.wikia.nocookie.net/fortnite/images/8/8c/Itachi_Uchiha_%28Featured%29_-_Outfit_-_Fortnite.png" alt="Itachi Uchiha do Fortnite">
+    <div class="imagem-container">
+        <img id="dinheiro" class="imagem" src="https://media.tenor.com/50VxfE-ap3UAAAAj/money.gif" alt="Dinheiro animado, clique para revelar uma surpresa">
+        <img id="skin" class="imagem" src="https://static.wikia.nocookie.net/fortnite/images/8/8c/Itachi_Uchiha_%28Featured%29_-_Outfit_-_Fortnite.png" alt="Skin do Itachi Uchiha do Fortnite">
+    </div>
+
+    <script>
+        // Pega as imagens pelo ID
+        const imagemDinheiro = document.getElementById('dinheiro');
+        const imagemSkin = document.getElementById('skin');
+
+        // Adiciona um evento de clique na imagem do dinheiro
+        imagemDinheiro.addEventListener('click', function() {
+            // Esconde a imagem do dinheiro
+            this.style.display = 'none';
+            // Mostra a imagem da skin
+            imagemSkin.style.display = 'block';
+        });
+    </script>
 
 </body>
 </html>
