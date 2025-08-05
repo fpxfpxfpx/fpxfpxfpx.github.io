@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acerte o Alvo!</title>
+    <title>Alternância de Imagens</title>
     <style>
         body {
-            /* Deixa o fundo da página transparente */
+            /* Fundo da página transparente */
             background-color: transparent;
             /* Flexbox para centralizar o conteúdo */
             display: flex;
@@ -14,25 +14,25 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden; /* Evita barras de rolagem */
+            overflow: hidden;
         }
-        
-        /* O contêiner pai para as imagens */
+
+        /* O contêiner para as imagens */
         .imagem-container {
             position: relative;
-            width: 300px; /* Defina a largura do contêiner */
-            height: 300px; /* Defina a altura do contêiner */
+            width: 300px;
+            height: 300px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* Estilo comum para as imagens */
+        /* Estilo para as imagens */
         .imagem {
             max-width: 100%;
             max-height: 100%;
             position: absolute;
-            cursor: pointer; /* Muda o cursor para indicar que é clicável */
+            transition: opacity 1s ease-in-out; /* Transição suave de opacidade */
         }
 
         /* Efeito de pulso para a imagem do dinheiro */
@@ -42,34 +42,47 @@
             100% { transform: scale(1); }
         }
 
+        /* Efeito de rotação para a imagem da skin */
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         #dinheiro {
-            animation: pulse 1s infinite; /* Aplica o efeito de pulso */
+            animation: pulse 1s infinite;
         }
 
         #skin {
-            display: none; /* A imagem da skin começa invisível */
+            animation: rotate 3s linear infinite; /* Rotação infinita */
+            opacity: 0; /* Começa invisível */
         }
     </style>
 </head>
 <body>
 
     <div class="imagem-container">
-        <img id="dinheiro" class="imagem" src="https://media.tenor.com/50VxfE-ap3UAAAAj/money.gif" alt="Dinheiro animado, clique para revelar uma surpresa">
+        <img id="dinheiro" class="imagem" src="https://media.tenor.com/50VxfE-ap3UAAAAj/money.gif" alt="Dinheiro animado">
         <img id="skin" class="imagem" src="https://static.wikia.nocookie.net/fortnite/images/8/8c/Itachi_Uchiha_%28Featured%29_-_Outfit_-_Fortnite.png" alt="Skin do Itachi Uchiha do Fortnite">
     </div>
 
     <script>
-        // Pega as imagens pelo ID
         const imagemDinheiro = document.getElementById('dinheiro');
         const imagemSkin = document.getElementById('skin');
+        let isDinheiroVisible = true;
 
-        // Adiciona um evento de clique na imagem do dinheiro
-        imagemDinheiro.addEventListener('click', function() {
-            // Esconde a imagem do dinheiro
-            this.style.display = 'none';
-            // Mostra a imagem da skin
-            imagemSkin.style.display = 'block';
-        });
+        // Alterna as imagens a cada 3 segundos
+        setInterval(() => {
+            if (isDinheiroVisible) {
+                // Esconde a imagem do dinheiro, mostra a da skin
+                imagemDinheiro.style.opacity = 0;
+                imagemSkin.style.opacity = 1;
+            } else {
+                // Esconde a imagem da skin, mostra a do dinheiro
+                imagemDinheiro.style.opacity = 1;
+                imagemSkin.style.opacity = 0;
+            }
+            isDinheiroVisible = !isDinheiroVisible; // Inverte o estado
+        }, 3000);
     </script>
 
 </body>
