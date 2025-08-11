@@ -26,7 +26,7 @@
     const ctx = canvas.getContext('2d');
 
     const img = new Image();
-    img.src = '3c5c8d11-b2c3-4e80-a02a-a5ccf0e5e952.png'; // Substitua pelo caminho correto da sua imagem
+    img.src = '3c5c8d11-b2c3-4e80-a02a-a5ccf0e5e952.png'; // caminho da sua imagem
 
     let x = 100, y = 100;
     let dx = (Math.random() < 0.5 ? -1 : 1) * (Math.random() * 0.2 + 0.4);
@@ -34,10 +34,6 @@
 
     const imgWidth = 380;
     const imgHeight = 120;
-
-    let showImage = true;
-    const hideDuration = 10000; // 10 segundos
-    const showDuration = 20000; // 20 segundos
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -47,18 +43,9 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    function toggleImageVisibility() {
-      showImage = !showImage;
-      const nextDuration = showImage ? showDuration : hideDuration;
-      setTimeout(toggleImageVisibility, nextDuration); // Alterna a visibilidade a cada intervalo
-    }
-
     function animate() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      if (showImage) {
-        ctx.drawImage(img, x, y, imgWidth, imgHeight);
-      }
+      ctx.drawImage(img, x, y, imgWidth, imgHeight); // sempre visível
 
       x += dx;
       y += dy;
@@ -70,7 +57,6 @@
     }
 
     img.onload = () => {
-      toggleImageVisibility(); // Inicia a alternância
       animate();
     };
   </script>
