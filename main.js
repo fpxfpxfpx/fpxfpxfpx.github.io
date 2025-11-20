@@ -125,6 +125,7 @@ function createAnswerElement(option, index) {
 
 function setupAnswerClick(answer, questionObj, questions) {
     answer.addEventListener("click", () => {
+        playMP3('certeza.mp3');
         document.querySelectorAll(".option-selected").forEach(el => {
             el.classList.remove("option-selected");
             el.style.background = "";
