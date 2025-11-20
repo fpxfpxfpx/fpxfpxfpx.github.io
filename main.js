@@ -1,35 +1,41 @@
 let questions = [
-    { question: "Qual é a comida favorita do seu parceiro?", options: ["Pizza", "Hambúrguer", "Sushi", "Churrasco"], correctIndex: 0 },
-    { question: "Qual foi a primeira viagem que fizeram juntos?", options: ["Praia", "Serra", "Cidade grande", "Parque temático"], correctIndex: 1 },
-    { question: "Qual é o filme favorito do seu namorado(a)?", options: ["Comédia", "Ação", "Romance", "Terror"], correctIndex: 0 },
-    { question: "Quem disse 'eu te amo' primeiro?", options: ["Eu", "Meu parceiro(a)", "Ambos juntos", "Ainda não dissemos"], correctIndex: 1 },
-    { question: "Qual música marcou o começo do relacionamento?", options: ["Pop", "Rock", "Sertanejo", "Rap"], correctIndex: 3 },
-    { question: "Qual é o hobby favorito do seu parceiro(a)?", options: ["Esportes", "Jogos", "Leitura", "Culinária"], correctIndex: 1 },
-    { question: "Qual é a bebida favorita do seu namorado(a)?", options: ["Refrigerante", "Suco", "Cerveja", "Vinho"], correctIndex: 0 },
-    { question: "Qual é a cor preferida do seu parceiro(a)?", options: ["Azul", "Vermelho", "Verde", "Preto"], correctIndex: 0 },
-    { question: "Quem é mais ciumento?", options: ["Eu", "Meu parceiro(a)", "Ambos", "Nenhum"], correctIndex: 0 },
-    { question: "Qual o signo do seu namorado(a)?", options: ["Áries", "Touro", "Leão", "Peixes"], correctIndex: 3 },
-    { question: "Qual tipo de presente ele(a) prefere?", options: ["Flores", "Chocolates", "Roupas", "Surpresa criativa"], correctIndex: 3 },
-    { question: "Qual o animal favorito do seu parceiro(a)?", options: ["Gato", "Cachorro", "Pássaro", "Peixe"], correctIndex: 1 },
-    { question: "Qual série ele(a) mais gosta?", options: ["Friends", "Stranger Things", "Game of Thrones", "The Office"], correctIndex: 1 },
-    { question: "Qual é a comida que ele(a) não gosta?", options: ["Brócolis", "Cenoura", "Tomate", "Alface"], correctIndex: 0 },
-    { question: "Quem leva mais tempo para se arrumar?", options: ["Eu", "Meu parceiro(a)", "Ambos igual", "Nenhum"], correctIndex: 1 },
-    { question: "Qual tipo de filme ele(a) prefere?", options: ["Romance", "Ação", "Comédia", "Suspense"], correctIndex: 2 },
-    { question: "Qual a data do aniversário do namoro?", options: ["Janeiro", "Fevereiro", "Março", "Abril"], correctIndex: 2 },
-    { question: "Quem manda mais mensagens no WhatsApp?", options: ["Eu", "Meu parceiro(a)", "Igual", "Nenhum"], correctIndex: 0 },
-    { question: "Qual é o jeito preferido de passar o final de semana?", options: ["Cinema", "Parque", "Casa", "Festa"], correctIndex: 2 },
-    { question: "Quem é mais bagunceiro?", options: ["Eu", "Meu parceiro(a)", "Ambos", "Nenhum"], correctIndex: 0 },
-    { question: "Qual é o lugar dos sonhos para viajar juntos?", options: ["Praia", "Montanha", "Cidade histórica", "Cruzeiro"], correctIndex: 0 },
-    { question: "Qual é a sobremesa favorita do seu parceiro(a)?", options: ["Sorvete", "Bolo", "Chocolate", "Frutas"], correctIndex: 2 },
-    { question: "Quem costuma dar mais presentes?", options: ["Eu", "Meu parceiro(a)", "Igual", "Nenhum"], correctIndex: 1 },
-    { question: "Quem costuma cozinhar mais?", options: ["Eu", "Meu parceiro(a)", "Ambos", "Nenhum"], correctIndex: 2 },
-    { question: "Quem é mais romântico(a)?", options: ["Eu", "Meu parceiro(a)", "Ambos", "Nenhum"], correctIndex: 1 },
-    { question: "Qual é o maior medo do seu parceiro(a)?", options: ["Altura", "Escuro", "Insetos", "Perder alguém"], correctIndex: 3 },
-    { question: "Quem é mais preguiçoso(a)?", options: ["Eu", "Meu parceiro(a)", "Ambos", "Nenhum"], correctIndex: 0 },
-    { question: "Quem planeja mais o futuro?", options: ["Eu", "Meu parceiro(a)", "Ambos", "Nenhum"], correctIndex: 1 },
-    { question: "Quem é mais vaidoso(a)?", options: ["Eu", "Meu parceiro(a)", "Ambos", "Nenhum"], correctIndex: 1 },
-    { question: "Quem costuma esquecer datas importantes?", options: ["Eu", "Meu parceiro(a)", "Ambos", "Nenhum"], correctIndex: 0 }
+    { question: "Qual é a comida favorita do seu parceiro?", options: ["Churrasco", "Sushi", "Hambúrguer", "Pizza"], correctIndex: 3 }, // Pizza
+    { question: "Qual foi a primeira viagem que vocês fizeram juntos?", options: ["Campo", "Serra", "Praia", "Cidade grande"], correctIndex: 2 }, // Praia
+    { question: "Qual é a cor favorita do seu parceiro?", options: ["Preto", "Verde", "Vermelho", "Azul"], correctIndex: 3 }, // Azul
+    { question: "Qual é o filme ou série favorita do seu parceiro?", options: ["Stranger Things", "Friends", "Supernatural", "The Witcher"], correctIndex: 2 }, // Supernatural
+    { question: "Qual é o doce ou sobremesa favorita do seu parceiro?", options: ["Chocolate", "Sorvete", "Brigadeiro", "Torta de limão"], correctIndex: 3 }, // Torta de limão
+    { question: "Qual é o hobby ou passatempo favorito do seu parceiro?", options: ["Esportes", "Música", "Ler", "PC"], correctIndex: 3 }, // PC
+    { question: "Qual é a música ou banda favorita do seu parceiro?", options: ["Bohemian Rhapsody", "Imagine", "Stairway to Heaven", "Come Together"], correctIndex: 3 }, // Come Together
+    { question: "Qual é o animal favorito do seu parceiro?", options: ["Gato", "Pássaro", "Coelho", "Cachorro"], correctIndex: 3 }, // Cachorro
+    { question: "Qual é a estação do ano favorita do seu parceiro?", options: ["Outono", "Primavera", "Verão", "Inverno"], correctIndex: 3 }, // Inverno
+    { question: "Qual é o sabor de sorvete favorito do seu parceiro?", options: ["Morango", "Napolitano", "Chocolate", "Flocos"], correctIndex: 3 }, // Flocos
+    { question: "Qual é o lugar dos sonhos que seu parceiro gostaria de visitar?", options: ["Austrália", "Japão", "Itália", "Canadá"], correctIndex: 3 }, // Canadá
+    { question: "Qual é a bebida favorita do seu parceiro?", options: ["Água", "Chá", "Suco", "Refrigerante"], correctIndex: 3 }, // Refrigerante
+    { question: "Qual é o personagem de filme ou série favorito do seu parceiro?", options: ["Homem-Aranha", "Batman", "Sherlock", "Doutor Estranho"], correctIndex: 3 }, // Doutor Estranho
+    { question: "Qual é o lanche rápido favorito do seu parceiro?", options: ["Hambúrguer", "Pizza", "Hot dog", "Lanche de frango"], correctIndex: 3 }, // Lanche de frango
+    { question: "Qual é o estilo de música favorito do seu parceiro?", options: ["Rock", "Sertanejo", "Eletrônica", "Pop"], correctIndex: 3 }, // Pop
+    { question: "Qual é o esporte ou time favorito do seu parceiro?", options: ["Futebol", "Tênis", "Basquete", "Nenhum"], correctIndex: 3 }, // Nenhum
+    { question: "Qual é a fruta favorita do seu parceiro?", options: ["Banana", "Laranja", "Maçã", "Uva"], correctIndex: 3 }, // Uva
+    { question: "Qual é o sabor de chocolate favorito do seu parceiro?", options: ["Branco", "Amargo", "Ao leite", "Nenhum"], correctIndex: 3 }, // Nenhum
+    { question: "Qual é o tipo de clima que seu parceiro mais gosta?", options: ["Quente", "Chuvoso", "Ameno", "Frio"], correctIndex: 3 }, // Frio
+    { question: "Qual é o dia da semana favorito do seu parceiro?", options: ["Sexta-feira", "Quarta-feira", "Domingo", "Sábado"], correctIndex: 3 } // Sábado
 ];
+
+
+
+function playMP3(fileName) {
+    // Cria um objeto de áudio com o arquivo passado
+    const audio = new Audio(fileName);
+
+    // Toca o áudio
+    audio.play()
+        .then(() => console.log(`${fileName} está tocando!`))
+        .catch(err => console.error('Erro ao tocar o áudio:', err));
+
+    // Retorna o objeto de áudio caso queira controlar (pausar, parar) depois
+    return audio;
+}
+
 
 
 const container = document.querySelector(".flex-1.bg-gradient-to-b");
@@ -180,8 +186,26 @@ function createConfirmButton(answer, questionObj, questions) {
             });
 
             if (isAnswerCorrect(answer.dataset.id, questionObj.correctIndex)) {
+                // Array de sons possíveis
+                const correctSounds = ['acertou.mp3', 'nice.mp3'];
+
+                // Escolhe aleatoriamente um
+                const soundToPlay = correctSounds[Math.floor(Math.random() * correctSounds.length)];
+
+                // Toca o som escolhido
+                playMP3(soundToPlay);
+
+                // Atualiza pontuação
                 score++;
                 scoreDisplay.innerText = `Pontos: ${score}`;
+            } else {
+                const correctSounds = ['preto.mp3', 'burro.mp3'];
+
+                // Escolhe aleatoriamente um
+                const soundToPlay = correctSounds[Math.floor(Math.random() * correctSounds.length)];
+
+                // Toca o som escolhido
+                playMP3(soundToPlay);
             }
 
             setTimeout(() => {
