@@ -1,60 +1,60 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <style>
-        /* Redefinir o delay padrão do animate.css */
-        .animate__delay-1s {
-            animation-delay: 0.15s !important;
-        }
-
-        .animate__delay-2s {
-            animation-delay: 0.3s !important;
-        }
-
-        .animate__delay-3s {
-            animation-delay: 0.45s !important;
-        }
-
-        .animate__delay-4s {
-            animation-delay: 0.6s !important;
-        }
-
-        .animate__delay-5s {
-            animation-delay: 0.75s !important;
-        }
-
-        .flash {
-            animation: flash 1s ease-in-out 0s 3;
-            /* 3 repetições */
-        }
-
-        /* Keyframes do flash */
-        @keyframes flash {
-
-            0%,
-            50%,
-            100% {
-                opacity: 1;
-            }
-
-            25%,
-            75% {
-                opacity: 0;
-            }
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
+<style>
+body {
+    background-color: transparent;
+}
+</style>
+<body>
+    <canvas id="snow-canvas" style="position:fixed;left:0;top:0;pointer-events:none;z-index:9999;"></canvas>
 
-<body class="bg-gray-900">
-    <div id="game" class="w-full h-[100dvh] flex overflow-hidden">
-        <div class="flex-1 bg-gradient-to-b from-blue-900 to-blue-800 min-h-screen px-4 py-5"></div>
-    </div>
-    <script src="main.js"></script>
+    <script>
+        (function () {
+            const canvas = document.getElementById('snow-canvas');
+            const ctx = canvas.getContext('2d');
+            let w = canvas.width = innerWidth;
+            let h = canvas.height = innerHeight;
+            const flakes = [];
+            const FLake_COUNT = 120;
+
+            function rand(min, max) { return Math.random() * (max - min) + min; }
+
+            for (let i = 0; i < FLake_COUNT; i++) {
+                flakes.push({
+                    x: rand(0, w),
+                    y: rand(0, h),
+                    r: rand(1, 4),
+                    d: rand(0.5, 2),
+                    swing: rand(0, Math.PI * 2)
+                });
+            }
+
+            function resize() { w = canvas.width = innerWidth; h = canvas.height = innerHeight; }
+            addEventListener('resize', resize);
+
+            function update() {
+                ctx.clearRect(0, 0, w, h);
+                for (let f of flakes) {
+                    f.y += f.d;
+                    f.x += Math.sin(f.swing) * 0.5;
+                    f.swing += 0.01;
+                    if (f.y > h + 5) { f.y = -10; f.x = rand(0, w); }
+                    ctx.beginPath();
+                    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+                    ctx.fill();
+                }
+                requestAnimationFrame(update);
+            }
+            update();
+        })();
+    </script>
 </body>
 
 </html>
