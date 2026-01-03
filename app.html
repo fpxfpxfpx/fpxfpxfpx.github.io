@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Abrir no Chrome</title>
+</head>
+<body>
+
+<button onclick="abrirChrome()">Abrir no Chrome</button>
+
+<script>
+function abrirChrome() {
+  const url = "https://www.google.com";
+
+  // Intent para abrir no Chrome no Android
+  const intentUrl =
+    "intent://" + url.replace(/^https?:\/\//, "") +
+    "#Intent;scheme=https;package=com.android.chrome;end";
+
+  // Tenta abrir o Chrome
+  window.location.href = intentUrl;
+
+  // Fallback: se não tiver Chrome, abre no navegador padrão
+  setTimeout(() => {
+    window.location.href = url;
+  }, 1500);
+}
+</script>
+
+</body>
+</html>
