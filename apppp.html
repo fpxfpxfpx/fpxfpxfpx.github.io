@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Acesso</title>
+    <style>
+        /* Estilos da sua página real */
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Camada de aviso (Overlay) */
+        #in-app-overlay {
+            display: none; /* Fica oculto por padrão */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+        }
+
+        /* Container da instrução no topo */
+        .instruction-box {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+            width: 80%;
+        }
+
+        /* Seta Animada */
+        .arrow-up {
+            font-size: 60px;
+            color: #00f2ea; /* Cor estilo TikTok */
+            display: inline-block;
+            animation: bounce 0.8s infinite alternate;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #ff0050;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-15px); }
+        }
+
+        /* Balão de texto */
+        .tooltip {
+            background: white;
+            color: black;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 18px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Triângulo do balão */
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid white;
+        }
+
+        .highlight {
+            color: #ff0050; /* Cor rosa TikTok */
+        }
+
+        .btn-ignore {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: transparent;
+            border: 1px solid #555;
+            color: #888;
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h1>Conteúdo Liberado!</h1>
+        <p>Você está no navegador externo.</p>
+    </div>
+
+    <div id="in-app-overlay">
+        <div class="instruction-box">
+            <div class="arrow-up">↗</div>
+            <div class="tooltip">
+                Ei! Saia do navegador do app.<br>
+                Clique nos <span class="highlight">três pontinhos</span><br>
+                e escolha <span class="highlight">"Abrir no Navegador"</span>
+            </div>
+        </div>
+        
+        <a href="#" class="btn-ignore" onclick="document.getElementById('in-app-overlay').style.display='none'">
+            continuar mesmo assim
+        </a>
+    </div>
+
+    <script>
+        function checkInApp() {
+            const ua = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // Lista atualizada incluindo TikTok e outros apps comuns
+            const isInApp = (
+                ua.indexOf("TikTok") > -1 || 
+                ua.indexOf("ByteLocale") > -1 || 
+                ua.indexOf("FBAN") > -1 || 
+                ua.indexOf("FBAV") > -1 || 
+                ua.indexOf("Instagram") > -1 || 
+                ua.indexOf("WhatsApp") > -1 ||
+                ua.indexOf("Messenger") > -1
+            );
+
+            if (isInApp) {
+                document.getElementById('in-app-overlay').style.display = 'block';
+            }
+        }
+
+        // Executa a função assim que a página carregar
+        window.onload = checkInApp;
+    </script>
+</body>
+</html>
